@@ -38,9 +38,12 @@ function save(
   } catch {
     // ignore error if directory already exists
   }
-  Deno.writeTextFileSync(`./quiz/${title}_quiz.txt`, quiz);
-  Deno.writeTextFileSync(`./quiz/${title}_answer.txt`, answer);
-  Deno.writeTextFileSync(`./quiz/${title}_commentary.txt`, commentary);
+  Deno.writeTextFileSync(`./quiz/${dirName}/${title}_quiz.txt`, quiz);
+  Deno.writeTextFileSync(`./quiz/${dirName}/${title}_answer.txt`, answer);
+  Deno.writeTextFileSync(
+    `./quiz/${dirName}/${title}_commentary.txt`,
+    commentary
+  );
 }
 
 async function crawl(dirPrefix: string, data: typeof QUIZ_2022_LINKS) {
