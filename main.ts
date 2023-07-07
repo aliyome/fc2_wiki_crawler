@@ -58,7 +58,7 @@ async function crawl(dirPrefix: string, data: typeof QUIZ_2022_LINKS) {
 }
 
 if (import.meta.main) {
-  await crawl('2022', QUIZ_2022_LINKS);
-  // await crawl(QUIZ_2021_LINKS);
-  // await crawl(QUIZ_2019_LINKS);
+  // await crawl('2022', QUIZ_2022_LINKS);
+  // await crawl('2021', QUIZ_2021_LINKS);
+  // await crawl('2019', QUIZ_2019_LINKS);
 }
