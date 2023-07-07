@@ -26,30 +26,36 @@ async function scrape(href: string, _title: string) {
   return { quiz, answer, commentary };
 }
 
-function save(title: string, quiz: string, answer: string, commentary: string) {
+function save(
+  dirName: string,
+  title: string,
+  quiz: string,
+  answer: string,
+  commentary: string
+) {
   try {
-    Deno.mkdirSync(`./quiz/${title}`, { recursive: true });
+    Deno.mkdirSync(`./quiz/${dirName}`, { recursive: true });
   } catch {
     // ignore error if directory already exists
   }
-  Deno.writeTextFileSync(`./quiz/${title}/quiz.txt`, quiz);
-  Deno.writeTextFileSync(`./quiz/${title}/answer.txt`, answer);
-  Deno.writeTextFileSync(`./quiz/${title}/commentary.txt`, commentary);
+  Deno.writeTextFileSync(`./quiz/${title}_quiz.txt`, quiz);
+  Deno.writeTextFileSync(`./quiz/${title}_answer.txt`, answer);
+  Deno.writeTextFileSync(`./quiz/${title}_commentary.txt`, commentary);
 }
 
-async function crawl(data: typeof QUIZ_2022_LINKS) {
-  for (const [_category, links] of Object.entries(data)) {
-    console.log(`scraping ${_category}`);
+async function crawl(dirPrefix: string, data: typeof QUIZ_2022_LINKS) {
+  for (const [category, links] of Object.entries(data)) {
+    console.log(`scraping ${category}`);
     for (const { title, href } of links) {
       const { quiz, answer, commentary } = await scrape(href, title);
-      save(title, quiz, answer, commentary);
+      save(`${dirPrefix}_${category}`, title, quiz, answer, commentary);
       await sleep(100);
     }
   }
 }
 
 if (import.meta.main) {
-  // await crawl(QUIZ_2022_LINKS);
+  await crawl('2022', QUIZ_2022_LINKS);
   // await crawl(QUIZ_2021_LINKS);
   // await crawl(QUIZ_2019_LINKS);
 }
