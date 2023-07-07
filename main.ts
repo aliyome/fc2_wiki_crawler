@@ -57,6 +57,9 @@ async function crawl(dirPrefix: string, data: typeof QUIZ_2022_LINKS) {
   }
 }
 
+// scraping script:
+// Array.from(document.querySelectorAll(`a[title^="2022>情報処理技術系>問題と解説"]`)).map(x => ({ title: x.textContent, href: x.href }))
+
 if (import.meta.main) {
   // await crawl('2022', QUIZ_2022_LINKS);
   // await crawl('2021', QUIZ_2021_LINKS);
